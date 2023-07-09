@@ -35,7 +35,7 @@ def get_keys(console_msg, lens):
     Returns:
         key: Google API keys
     """
-    while(True):
+    while True:
 
         key = input_key(prompt=console_msg).strip()
 
@@ -49,7 +49,7 @@ def get_keys(console_msg, lens):
         if 'Google Default Client ID' in console_msg:
             # Additional check on Google Default Client ID
             if not re.match(
-                r'\d+-[A-Za-z0-9]+\.apps\.googleusercontent\.com$', key
+                    r'\d+-[A-Za-z0-9]+\.apps\.googleusercontent\.com$', key
             ) and not re.match(
                 r'\d{12}\.apps\.googleusercontent\.com$', key
             ):
@@ -68,12 +68,14 @@ def custom_install(app_dir, app_bin):
 
     Returns:
         app_dir: path to app
+        :param app_bin:
+        :param app_dir:
     """
     user = os.getenv('USER')
     user_home = os.getenv('HOME')
     print('App not found at /Applications')
 
-    while(True):
+    while True:
         opt = input('Did you install Chromium for specific user? (y/n) '
                     ).strip()
 
@@ -90,7 +92,7 @@ def custom_install(app_dir, app_bin):
                 ', Do you want to continue [y/N] ').strip()
 
     if opt.lower() in ['y', 'yes']:
-        return([user_home + app_dir.pop()])
+        return [user_home + app_dir.pop()]
     return 0
 
 
@@ -100,9 +102,9 @@ def generate_new_launcher():
     Returns:
         status: return or exit status
     """
-    GAK = ""
-    GDCI = ""
-    GDCS = ""
+    gak = ""
+    gdci = ""
+    gdcs = ""
     app_name = 'Chromium'
     template_name = 'Chromium_template'
     app_dir = ['/Applications/Chromium.app/']
@@ -136,12 +138,9 @@ def generate_new_launcher():
             return 0
 
     # Enter required keys
-    GAK = get_keys('Enter Google API key: ', [39])
-
-    GDCI = get_keys(
-        'Enter Google Default Client ID: ', [39] + list(range(70, 75)))
-
-    GDCS = get_keys('Enter Google Default Client Secret: ', [24] + list(range(11, 14)))
+    gak = get_keys('Enter Google API key: ', [39])
+    gdci = get_keys('Enter Google Default Client ID: ', [39])
+    gdcs = get_keys('Enter Google Default Client Secret: ', [24])
 
     app_bin = os.path.join(*[x for sublist in app_bin for x in sublist])
 
